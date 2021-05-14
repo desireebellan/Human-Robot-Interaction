@@ -1,4 +1,4 @@
 # HRI_project
 requirements:
-*docker
-*python 3
+* docker
+* python 3
