@@ -3,4 +3,4 @@ requirements:
 * docker
 * python 3
 
-[HRI software Iocchi]{https://bitbucket.org/iocchi/hri_software/src/master/}
+[HRI software Iocchi](https://bitbucket.org/iocchi/hri_software/src/master/)
