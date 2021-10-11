@@ -1,0 +1,145 @@
+HRI dialogue:
+
+Case B : Autistic child
+
+Pepper - Hi i'm Pepper ! What is your name ?
+
+Child - Hi, my name is [NAME] / I am [NAME] / [NAME] --> TABLET
+
+Pepper - I'm really happy to meet you, [NAME]. Let's play together! Todays game is called 'emotion game'. Do you want to hear the instructions ?
+
+Child - [YES/NO] ->  TABLET
+
+[if YES] - [INSTRUCTIONS1] I will say a sentence. Then you'll have to tell me which emotion this sentence transmit, between happyness, sadness, anger or surprise. 
+Do you want me to repeat the instructions?
+
+Child - [YES/NO] -> TABLET 
+
+--------------------------------------------------------------------------------------------
+
+[if NO] - Let's start!
+
+This is the first sentence:  -> GESTI 
+
+This sentence transmit which emotion ? 
+1: Happiness
+2: Sadness
+3: Anger
+4: Worried
+
+Child : [ANSWER] -> TABLET
+
+[Gestures recognition]
+
+[if ANSWER correct] : The answer is correct, good job ! -> GESTI 
+
+[ if ANSWER is not correct] : Let's see the results together ! This sentence trasmits [correct ANSWER] ! 
+
+Pepper - Let's try a second time ! 
+
+This is the second sentence: -> GESTI 
+
+This sentence transmit which emotion ? -> GESTI
+1: Happiness
+2: Sadness
+3: Anger
+4: Worried
+
+Child : [ANSWER] -> TABLET
+
+[Gestures recognition]
+
+[if ANSWER correct] : The answer is correct, good job !  -> GESTI 
+
+[ if ANSWER is not correct] : Let's see the results together !
+ This sentence trasmits [correct ANSWER] ! 
+ 
+ -------------------------------------------------------------------------------------------
+ 
+ Pepper : The game is finished ! You have done a great job ! -> GESTI 
+ Did you liked it?
+ 
+ Child : [ANWERS]  -> TABLET 
+ 
+ [if ANSWER positive] : I'm so happy that you liked it ! To celebrate it, let's dance together ! -> GESTI 
+ 
+ Do you want to play again?
+ 
+ Child : [YES/NO]
+ 
+ [if YES] - [START GAME]
+ [if NO] - [CONCLUSION]
+ 
+ [if ANSWER negative] :  I'm sorry you didn't liked it, next time we will try a different game ! -> GESTI [?]
+ 
+ [CONCLUSION] : Bye Bye ! -> GESTI
+ ___________________________________________________________________________________________
+ 
+ Case A: normal child
+ 
+ Pepper : Hi ! I'm Pepper, What's your name ?
+ 
+ Child - Hi, my name is [NAME] / I am [NAME] / [NAME]
+
+Pepper - I'm really happy to meet you, [NAME]. Let's play together! Todays game is called 'emotion game'. Do you want to hear the instructions ?
+
+Child - [YES/NO]
+
+[if YES] : [INSTRUCTIONS 2] I will choose an emotion between happiess, sadness, suprise and anger. You have to say me a simple sentence that express that emotion. 
+The better the sentence, the highest points you will get ! 
+
+Do you want to hear the instructions again?
+
+Child : [YES/NO]
+
+[if YES] : [INSTRUCTIONS 2]
+
+--------------------------------------------------------------------------------------------
+
+[if NO] : [PLAY GAME 2]
+
+The first emotion is [RANDOM EMOTION]. Tell me a sentence that express [RANDOM EMOTION]
+
+CHILD : [ANSWER]
+
+Pepper : [RECOGNIZE SENTENCE EMOTION] # it can also be simpler (positive/negative)
+
+I've recognized the emotion [RECOGNIZE SENTENCE EMOTION]. Your score is [SCORE]
+
+[if SCORE >=7] - Great job! 
+[if SCORE >=5 && SCORE <= 6] - Not bad! 
+[if SCORE <5] - Oh no! You will do better next time !
+
+The second emotion is [RANDOM EMOTION]. Tell me a sentence that express [RANDOM EMOTION].
+
+Child : [ANSWER]
+
+Pepper : [RECOGNIZE SENTENCE EMOTION] # it can also be simpler (positive/negative)
+
+I've recognized the emotion [RECOGNIZE SENTENCE EMOTION]. Your score is [SCORE]
+
+[if SCORE >=7] - Great job! 
+[if SCORE >=5 && SCORE <= 6] - Not bad! 
+[if SCORE <5] - Oh no! You will do better next time !
+
+--------------------------------------------------------------------------------------------
+
+The game is finished. Your total score was : [AVERAGE SCORE]
+
+Pepper : The game is finished ! You have done a great job !
+ Did you liked it?
+ 
+ Child : [ANWERS]
+ 
+ [if ANSWER positive] : I'm so happy that you liked it ! To celebrate it, let's dance together ! -> GESTI
+ 
+ Do you want to play again?
+ 
+ Child : [YES/NO]
+ 
+ [if YES] - [START GAME]
+ [if NO] - [CONCLUSION]
+ 
+ [if ANSWER negative] :  I'm sorry you didn't liked it, next time we will try a different game !
+ 
+ [CONCLUSION] : Bye Bye ! 
