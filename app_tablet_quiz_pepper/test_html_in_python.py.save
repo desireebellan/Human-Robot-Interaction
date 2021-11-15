@@ -1,0 +1,75 @@
+from flask import Flask
+from flask import request
+from flask import render_template
+
+
+def connect_to_webapp(html_path):
+    app = Flask(__name__)
+
+    @app.route("/")
+    def index():
+
+        from flask import Flask
+from flask import request
+from flask import render_template
+
+
+def connect_to_webapp(session, args):
+    app = Flask(__name__)
+
+    @app.route("/")
+    def index():
+        name = request.args.get("name", "")
+        if name:
+            strsay = name_from(name)
+        else:
+            strsay = ""
+
+        say(session, args, strsay)
+
+        return (
+            """<form action="" method="get">
+                    Input a Name: <input type="text" name="name">
+                    <input type="submit" value="Say hello to">
+                </form>"""
+            + "Hello "
+            + strsay
+        )
+
+
+    def name_from(name):
+        """ Convert Celsius to Fahrenheit degrees.  """
+        try:
+            strsay = " "+name+"! My I'm Pepper"
+            return str(strsay)
+        except ValueError:
+            return "invalid input"
+
+    app.run(host="127.0.0.1", port=8080, debug=True)
+        name = request.args.get("name", "")
+        if name:
+            strsay = name_from(name)
+        else:
+            strsay = ""
+
+        say(session, args, strsay)
+
+        return (
+            """<form action="" method="get">
+                    Input a Name: <input type="text" name="name">
+                    <input type="submit" value="Say hello to">
+                </form>"""
+            + "Hello "
+            + strsay
+        )
+
+
+    def name_from(name):
+        """ Convert Celsius to Fahrenheit degrees.  """
+        try:
+            strsay = " "+name+"! My I'm Pepper"
+            return str(strsay)
+        except ValueError:
+            return "invalid input"
+
+    app.run(host="127.0.0.1", port=8080, debug=True)

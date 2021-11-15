@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quick Quiz</title>
+    <link rel="stylesheet" href="/static/app.css" />
+    <!--
+    <link rel="stylesheet" media="all" href="{{ url_for('static', filename='app.css')}}">
+    <link rel="shortcut icon" href=src="{{url_for('static', filename='favicon.ico')}}"> #### salvare il file favicon.ico nella stessa cartella di index (rtemplates)
+    -->
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="home" class="flex-center flex-column">
+        <center>
+        <h1>
+          Quizzing<br>the<br>Emotion
+        </h1>
+        </center>
+        <!--
+        <a class="btn" href="/questions.html">Play Questionary</a>        
+        <a class="btn" href="/highscores.html">High Scores</a>
+        -->
+        <a class="btn" href="{{ url_for('quiz') }}">Play Questionary</a>
+      </div>
+    </div>
+  </body>
+
+</html>
