@@ -341,8 +341,8 @@ class PlayEmotionController(object):
 			self.playHappyEmotion()
 		elif emotion == "sad":
 			self.playSadEmotion()
-		elif emotion == "afraid":
-			self.playAfraidEmotion()
+		elif emotion == "surprised":
+			self.playSurprisedEmotion()
                 elif emotion == "angry":
                         self.playAngryEmotion()
 		else:
