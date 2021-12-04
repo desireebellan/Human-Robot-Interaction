@@ -82,13 +82,6 @@ class PlayEmotionController(object):
 		jointValues = [headYA, headPA, LShoulderPA, LShoulderRA, LElbowYA, LElbowRA,
                                LWristYA, RShoulderPA, RShoulderRA, RElbowYA, RElbowRA, RWristYA, HipRA, HipPA, RHandA, LHandA]
 
-                #jointTimes = [[3.0], [1.0, 3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0]]
-                #jointValues = [[0.0], [20.0*TO_RAD, 0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0]]
-
-                # if (jointValues==None):
-		# 	print 'No joint values.'
-		#       sys.exit(0)
-
 		isAbsolute = True
 
 		# Start service
@@ -148,13 +141,6 @@ class PlayEmotionController(object):
 
 		jointValues = [headYA, headPA, LShoulderPA, LShoulderRA, LElbowYA, LElbowRA,
                                LWristYA, RShoulderPA, RShoulderRA, RElbowYA, RElbowRA, RWristYA, HipRA, HipPA, RHandA, LHandA]
-
-                #jointTimes = [[3.0], [1.0, 3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0]]
-                #jointValues = [[0.0], [20.0*TO_RAD, 0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0]]
-
-                # if (jointValues==None):
-		# 	print 'No joint values.'
-		#       sys.exit(0)
 
 		isAbsolute = True
 
@@ -216,12 +202,6 @@ class PlayEmotionController(object):
 
                 jointValues = [headYA, headPA, LShoulderPA, LShoulderRA, LElbowYA, LElbowRA,
                                LWristYA, RShoulderPA, RShoulderRA, RElbowYA, RElbowRA, RWristYA, HipRA, HipPA, RHandA, LHandA]
-                #jointTimes = [[3.0], [1.0, 3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0]]
-                #jointValues = [[0.0], [20.0*TO_RAD, 0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0]]
-
-                # if (jointValues==None):
-                #       print 'No joint values.'
-                #       sys.exit(0)
 
                 isAbsolute = True
 
@@ -234,48 +214,48 @@ class PlayEmotionController(object):
                 print "End motion execution"
 
 
-	# =============== #
-	# Afraid Gestures #
-	# =============== #
-	def playAfraidEmotion(self, joint_values = None):
+	# ================== #
+	# Surprised Gestures #
+	# ================== #
+	def playSurprisedEmotion(self, joint_values = None):
 
                 TO_RAD = math.pi/180.0
 
 
-                headYT = [8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]
-                headPT = [8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]
-                LShoulderPT = [3.0]
-                LShoulderRT = [3.0]
-                LElbowYT = [8.0, 9.0]
-                LElbowRT = [8.0, 9.0]
-                LWristYT = [8.0, 9.0]
-                RShoulderPT = [3.0]
-                RShoulderRT = [3.0]
-                RElbowYT = [8.0, 9.0]
-                RElbowRT = [8.0, 9.0]
-                RWristYT = [8.0, 9.0]
-                HipRT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
-                HipPT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
-                RHandT = [1.0]
-                LHandT = [1.0]
+                headYT = [3.0]
+                headPT = [3.0]
+                LShoulderPT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+                LShoulderRT = [1.0, 2.0, 3.0, 4.0, 5.0]
+                LElbowYT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+                LElbowRT = [1.0, 3.0, 4.0, 5.0, 6.0]
+                LWristYT = [1.0, 2.0, 3.0, 4.0]
+                RShoulderPT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+                RShoulderRT = [1.0, 2.0, 3.0, 4.0, 5.0]
+                RElbowYT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+                RElbowRT = [1.0, 3.0, 4.0, 5.0, 6.0]
+                RWristYT = [1.0, 2.0, 3.0, 4.0]
+                HipRT = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+                HipPT = [1.0, 2.0, 3.0]
+                RHandT = [2.0]
+                LHandT = [2.0]
 
 
-                headYA = [0.0, 0.0, 0.0, 0.0, 40.0*TO_RAD, 0.0, -40.0*TO_RAD, 0.0]
-                headPA = [0.0, 20.0*TO_RAD, 0.0, 0.0, 0.0, 0.0, 0.0, 20.0*TO_RAD]
-                LShoulderPA = [0.0]
-                LShoulderRA = [0.0]
-                LElbowYA = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -50.0*TO_RAD]
-                LElbowRA = [0.0, -65.0*TO_RAD]
-                LWristYA = [-100.0*TO_RAD, -100.0*TO_RAD]
-                RShoulderPA = [0.0]
-                RShoulderRA = [0.0]
-                RElbowYA = [0.0, 50.0*TO_RAD]
-                RElbowRA = [0.0, 65.0*TO_RAD]
-                RWristYA = [100.0*TO_RAD, 100.0*TO_RAD]
-                HipRA = [-20.0*TO_RAD, -40.0*TO_RAD, -20.0*TO_RAD, 0.0, 20.0*TO_RAD, 40.0*TO_RAD, 20.0*TO_RAD, 0.0]
-                HipPA = [10.0*TO_RAD, 30.0*TO_RAD, 10.0*TO_RAD, 0.0, 10.0*TO_RAD, 30.0*TO_RAD, 10.0*TO_RAD, 0.0]
-                RHandA = [0.0]
-                LHandA = [0.0]
+                headYA = [0.0]
+                headPA = [0.0]
+                LShoulderPA = [50.0*TO_RAD, -20.0*TO_RAD, 20.0*TO_RAD, 20.0*TO_RAD, 70.0*TO_RAD, -45.0*TO_RAD]
+                LShoulderRA = [0.0, 26.0*TO_RAD, 0.0, 0.0, 26.0*TO_RAD]
+                LElbowYA = [-70.0*TO_RAD, -70.0*TO_RAD, -60.0*TO_RAD, -45.0*TO_RAD, -100.0*TO_RAD, -30.0*TO_RAD]
+                LElbowRA = [-85.0*TO_RAD, -90.0*TO_RAD, -90.0*TO_RAD, -50.0*TO_RAD, -98.0*TO_RAD]
+                LWristYA = [0.0, -20.0*TO_RAD, -20.0*TO_RAD, -80.0*TO_RAD]
+                RShoulderPA = [50.0*TO_RAD, -20.0*TO_RAD, 20.0*TO_RAD, 20.0*TO_RAD, 70.0*TO_RAD, -45.0*TO_RAD]
+                RShoulderRA = [0.0, -26.0*TO_RAD, 0.0, 0.0, -26.0*TO_RAD]
+                RElbowYA = [70.0*TO_RAD, 70.0*TO_RAD, 60.0*TO_RAD, 45.0*TO_RAD, 100.0*TO_RAD, 30.0*TO_RAD]
+                RElbowRA = [85.0*TO_RAD, 90.0*TO_RAD, 90.0*TO_RAD, 50.0*TO_RAD, 98.0*TO_RAD]
+                RWristYA = [0.0, 20.0*TO_RAD, 20.0*TO_RAD, 80.0*TO_RAD]
+                HipRA = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -15.0*TO_RAD, 0.0, 15.0*TO_RAD, 0.0]
+                HipPA = [0.0, 5.0*TO_RAD, 0.0]
+                RHandA = [96.0*TO_RAD]
+                LHandA = [96.0*TO_RAD]
 
                 jointTimes = [headYT, headPT, LShoulderPT, LShoulderRT, LElbowYT, LElbowRT,
                               LWristYT, RShoulderPT, RShoulderRT, RElbowYT, RElbowRT, RWristYT, HipRT, HipPT, RHandT, LHandT]
@@ -283,23 +263,17 @@ class PlayEmotionController(object):
                 jointValues = [headYA, headPA, LShoulderPA, LShoulderRA, LElbowYA, LElbowRA,
                                LWristYA, RShoulderPA, RShoulderRA, RElbowYA, RElbowRA, RWristYA, HipRA, HipPA, RHandA, LHandA]
 
-                #jointTimes = [[3.0], [1.0, 3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0], [3.0]]
-                #jointValues = [[0.0], [20.0*TO_RAD, 0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0]]
-
-                # if (jointValues==None):
-                #       print 'No joint values.'
-                #       sys.exit(0)
-
                 isAbsolute = True
 
                 # Start service
                 print "Executing motion..."
-		motionProxy = ALProxy("ALMotion", self.pip, self.pport)
+		motion_service = self.session.service("ALMotion")
 
-                motionProxy.post.angleInterpolation(jointsNames, jointValues, jointTimes, isAbsolute)
+                motion_service.angleInterpolation(jointsNames, jointValues, jointTimes, isAbsolute)
+		#self.circle(0.5, motion_service2)
+		#self.test_speed(motion_service2)
 
                 print "End motion execution"
-
 
 
         # =============== #
@@ -349,10 +323,6 @@ class PlayEmotionController(object):
 
                 jointValues = [headYA, headPA, LShoulderPA, LShoulderRA, LElbowYA, LElbowRA,
                                LWristYA, RShoulderPA, RShoulderRA, RElbowYA, RElbowRA, RWristYA, HipRA, HipPA, RHandA, LHandA]
-
-                # if (jointValues==None):
-                #       print 'No joint values.'
-                #       sys.exit(0)
 
                 isAbsolute = True
 
