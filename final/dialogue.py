@@ -7,7 +7,7 @@ import json
 import time
 
 from utility import *
-#from speach_recognition import *
+from app_speech_recognition import *
 from app_animation_pepper import *
 from emotion_recognition.test import *
 
@@ -26,6 +26,7 @@ class Dialogue(object):
 	    self.cathegory = cathegory
             self.sentence_filename = jsonFilename
 	    self.emotion_control = PlayEmotionController(pip, pport)
+	    self.speech2text = SpeechRecognition()
             
     def jsonOpen(self):
         with open(self.sentence_filename) as json_file:
@@ -47,17 +48,32 @@ class Dialogue(object):
         self.emotions.pop(choice)
         
         return emotion
+
+    def answer(self):
+	text1 = self.speech2text.speech().lower()
+	string = "Is this what you said?"
+	say(string, self.pip, self.pport)
+	say(str(text1), self.pip, self.pport)
+	text2 = self.speech2text.speech().lower()
+	if 'yes' in text2:
+		return text1
+	else:
+		string = "Please type your answer"
+		say(string, self.pip, self.pport)
+		text1 = text().lower()
+		return text1
           
     def start(self):
         
         # Pepper Introduce himself
+	self.emotion_control.reset()
         
         str = "Hi i'm Pepper ! What is your name ?"
         say(str, self.pip, self.pport)
         
         # Receive answer
-        #answer = speach()
-        answer = text()
+        answer = self.speech2text.speech()
+        #answer = text()
         
         if answer == "":            
             #use tablet
@@ -65,16 +81,21 @@ class Dialogue(object):
         else:       
             self.verbal = True
             # Get name from answer
-            self.name = get_name(answer)[0]
-            str = " I'm really happy to meet you, {}".format(self.name)
-	    say(str, self.pip, self.pport)
+            name = get_name(answer)
+	    if name == "":
+		string = "Sorry I didn't get your name, can you please type it?"
+		self.name = text()
+	    else:
+		self.name=name
+            string = " I'm really happy to meet you, {}".format(self.name)
+	    say(string, self.pip, self.pport)
     
         # Ask if instructions are needed
         str = "Let's play together! Todays game is called 'emotion game'. Do you want to hear the instructions ?"
         say(str, self.pip, self.pport)
         
         # wait for answer
-        answer = text().lower()
+        answer = self.answer()
         
         if 'yes' in answer:
             self.instructions()
@@ -98,7 +119,7 @@ class Dialogue(object):
         str = "Do you want me to repeat the instructions?"
         say(str, self.pip, self.pport)
         
-        answer = text().lower()
+        answer = self.answer()
         
         if 'yes' in answer:
             self.instructions()
@@ -106,7 +127,7 @@ class Dialogue(object):
             self.play_game()
        
     def play_game(self):
-        string = "Let's start!"
+	string = "Let's start!"
         say(string, self.pip, self.pport)  
         
         self.sentences = self.jsonOpen()
@@ -127,7 +148,7 @@ class Dialogue(object):
                 self.emotion_control.playEmotion(result)
                 say(str(text_emo), self.pip, self.pport)
 		self.emotion_control.reset()
-		time.sleep(6)
+		time.sleep(15)
                 
                 string = "This sentence is : 1 Happy, 2 Sad, 3 Angry, 4 Fear"
 		say(string, self.pip, self.pport)
@@ -141,20 +162,14 @@ class Dialogue(object):
 			tag=4
                 
                 # wait for answer
-                answer = text().lower()
-                
-                if answer == "":
-                    # gesture detection
-                    # tablet
-                    string = " Non verbal mode active "
-		    say(string, self.pip, self.pport)
-                    
+                answer = self.answer()
+                                  
                 if answer == result or answer == str(tag):
-                    string = "The answer is correct, good job !"
+                    string = "The answer is correct, good job {} !".format(self.name)
                     self.emotion_control.playEmotion('happy')                   
                     say(string, self.pip, self.pport)
 		    self.emotion_control.reset()
-		    time.sleep(10)
+		    time.sleep(15)
 
                 
                 else :
@@ -165,7 +180,7 @@ class Dialogue(object):
                     string = "The correct answer is: {}".format(result)
 		    say(string, self.pip, self.pport)
 		    self.emotion_control.reset()
-		    time.sleep(4)
+		    time.sleep(15)
                     
                                         
             elif self.cathegory == 'neurotypical':
@@ -176,30 +191,31 @@ class Dialogue(object):
                 say(string, self.pip, self.pport)
                 
                 # wait for answer
-                answer = text().lower()
+                answer = self.answer()
                 
                 prediction, score = predict_emotion(answer, emotion)
-		score = round(score*100,2)
+		score = round(score*10,2)
                 self.score += score
                 
                 string = "Your score is: {:.2f}".format(score*100)
 		say(string, self.pip, self.pport)
                 
                 if score >= 7 :
-                    string = "Great job!"
+                    string = "Great job, {}!".format(self.name)
                     self.emotion_control.playEmotion('happy')
                     say(string, self.pip, self.pport)
                     
                 elif score>= 5 and score<7:
-                    string = "Not bad!"
+                    string = "Not bad, {}!".format(self.name)
                     say(string, self.pip, self.pport)
                 
                 else:
                     string = "Oh no! You will do better next time!"
                     self.emotion_control.playEmotion('sad')
                     say(string, self.pip, self.pport)
+		    self.emotion_control.reset()
                     
-        self.conclusion()
+	self.conclusion()
                    
     def conclusion(self):
         str = "The game is finished"
@@ -211,9 +227,9 @@ class Dialogue(object):
             self.emotion_control.playEmotion('happy')
 	    self.emotion_control.reset()
             say(str, self.pip, self.pport)
-	    time.sleep(5)
+	    time.sleep(15)
             
-        if self.cathegory == 'neurotypical':
+        elif self.cathegory == 'neurotypical':
             str = "Your total score is: {}".format(self.score)
 	    say(str, self.pip, self.pport)
 	    time.sleep(5)
@@ -223,28 +239,30 @@ class Dialogue(object):
         
         #wait for answer
         
-        answer = text().lower()
+        answer = self.answer()
         if 'yes' in answer:
-            str = "I'm so happy that you liked it ! To celebrate it, let's dance together ! "
-	    emotion_control.playEmotion('happy')
+            string = "I'm so happy that you liked it ! To celebrate it, let's dance together ! "
+	    self.emotion_control.playEmotion('happy')
 	    self.emotion_control.reset()
-            say(str, self.pip, self.pport)
-	    time.sleep(10)
+            say(string, self.pip, self.pport)
+	    time.sleep(15)
 		
             
-            str = "Do you want to play it again?"
-            say(str, self.pip, self.pport)
+            string = "Do you want to play it again?"
+            say(string, self.pip, self.pport)
             
-            answer = text().lower()
+            answer1 = self.answer()
             
-            if 'yes' in answer:
+            if 'yes' in answer1:
                 self.play_game()
-        if 'no' in answer:
-            str = "I'm sorry you didn't liked it, next time we will try a different game ! "
+        elif 'no' in answer:
+            string = "I'm sorry you didn't liked it, next time we will try a different game ! "
 	    say(str, self.pip, self.pport)
 	    time.sleep(5)
-        
-        str = "Bye bye!"
+	
+	string = "It's been awsome to play with you, {}!".format(self.name)
+	say(string, self.pip, self.pport)        
+        str = "See you next time, bye bye!"
         say(str, self.pip, self.pport)
         
         
