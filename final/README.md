@@ -45,5 +45,5 @@ unzip punkt.zip
 cd HRI_project/final
 wget https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
 mv stanford-ner-4.2.0.zip stanford-ner.zip
-unzip stenford-ner
+unzip stanford-ner
 ```
