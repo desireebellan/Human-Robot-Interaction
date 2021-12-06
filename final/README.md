@@ -34,8 +34,8 @@ pip2 install nltk==3.4
 ```
 * Download and unzip the package punkt:
 ```
-cd 
-mkdir nltk_data/tokenizers && cd nltk_data/tokenizers
+cd ~
+mkdir -p nltk_data/tokenizers && cd nltk_data/tokenizers
 wget https://github.com/nltk/nltk_data/blob/gh-pages/packages/tokenizers/punkt.zip?raw=true
 unzip punkt.zip
 ```
