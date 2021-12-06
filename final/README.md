@@ -16,6 +16,12 @@ wget https://bootstrap.pypa.io/pip/3.7/get-pip.py
 sudo python3 get-pip.py
 sudo rm get-pip.py
 ```
+## Instructions
+Copy the reporitory locally
+
+```
+git clone 
+```
 To use the library nltk.tag.stanford.StandfordNERTagger you need to execute the following instructions:
 * Install Java
 ```
@@ -32,4 +38,10 @@ cd
 mkdir nltk_data/tokenizers && cd nltk_data/tokenizers
 wget https://github.com/nltk/nltk_data/blob/gh-pages/packages/tokenizers/punkt.zip?raw=true
 unzip punkt.zip
+```
+* Download and unzip the folder stenford-ner:
+```
+cd HRI_project
+wget https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
+unzip stenford-ner
 ```
