@@ -37,6 +37,7 @@ pip2 install nltk==3.4
 cd ~
 mkdir -p nltk_data/tokenizers && cd nltk_data/tokenizers
 wget https://github.com/nltk/nltk_data/blob/gh-pages/packages/tokenizers/punkt.zip?raw=true
+mv punkt.zip?raw=true punkt.zip
 unzip punkt.zip
 ```
 * Download and unzip the folder stenford-ner:
