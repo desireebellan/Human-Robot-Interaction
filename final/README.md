@@ -20,7 +20,7 @@ sudo rm get-pip.py
 Copy the reporitory locally
 
 ```
-git clone 
+git clone https://github.com/desireebellan/HRI_project.git
 ```
 To use the library nltk.tag.stanford.StandfordNERTagger you need to execute the following instructions:
 * Install Java
