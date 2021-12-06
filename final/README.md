@@ -42,7 +42,7 @@ unzip punkt.zip
 ```
 * Download and unzip the folder stenford-ner:
 ```
-cd HRI_project
+cd HRI_project/final
 wget https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
 unzip stenford-ner
 ```
