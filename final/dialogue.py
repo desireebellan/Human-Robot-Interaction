@@ -6,6 +6,7 @@ import os
 import json
 import time
 
+
 from utility import *
 from app_speech_recognition import *
 from app_animation_pepper import *
@@ -19,14 +20,22 @@ emotions = ['happiness', 'sadness', 'anger', 'surprise']
 
 
 class Dialogue(object):
-    def __init__(self, pip, pport,cathegory,jsonFilename):
+    def __init__(self, pip, pport,cathegory,jsonFilename, session):
             super(Dialogue, self).__init__()
             self.pip = pip
             self.pport = pport
 	    self.cathegory = cathegory
             self.sentence_filename = jsonFilename
+	    self.session = session
 	    self.emotion_control = PlayEmotionController(pip, pport)
 	    self.speech2text = SpeechRecognition()
+
+	    if self.cathegory == 'autistic':
+		avertgaze = True
+	    else:
+		avertgaze = False
+
+	    self.vision = Vision(session = self.session , avertgaze = avertgaze)
             
     def jsonOpen(self):
         with open(self.sentence_filename) as json_file:
@@ -67,6 +76,10 @@ class Dialogue(object):
         
         # Pepper Introduce himself
 	self.emotion_control.reset()
+	time.sleep(5)
+	self.vision.gaze_detect('start')
+	time.sleep(20)
+	
         
         str = "Hi i'm Pepper ! What is your name ?"
         say(str, self.pip, self.pport)
@@ -143,7 +156,9 @@ class Dialogue(object):
             if self.cathegory == 'autistic':
                 
                 # save json with sentences
-            
+		
+		self.vision.gaze_detect('end')
+          
                 text_emo, result = self.rand_sentence()
                 self.emotion_control.playEmotion(result)
                 say(str(text_emo), self.pip, self.pport)
@@ -276,9 +291,22 @@ if __name__ ==  "__main__":
     pip = args.pip
     pport = args.pport
     cathegory = args.cathegory
+
+    # Start Application
+    try:
+        connection_url = "tcp://" + pip + ":" + str(pport)
+        print("trying to connect to "+str(connection_url)+"\n")
+        app = qi.Application(["HRI", "--qi-url=" + connection_url ])
+        print("connected to "+str(connection_url)+"\n")
+    except RuntimeError:
+        print ("Can't connect to Naoqi at ip \"" + pip + "\" on port " + str(pport) +".\n"
+               "Please check your script arguments. Run with -h option for help.")
+        sys.exit(1)
     
     dir_=os.path.abspath('.')+'/'
     filenameJson = dir_ + "sentences.jsonl"
+    app.start()
+    session = app.session
 
-    dialogue = Dialogue(pip, pport, cathegory,filenameJson)
+    dialogue = Dialogue(pip, pport, cathegory,filenameJson, session)
     dialogue.start()

@@ -3,6 +3,7 @@ import argparse
 import sys
 import time
 import os
+#import pexpect
 
 #to download correctly nltk.tag.stanford.StenfordNERTagger
 # change the java_path to the path on you computer
@@ -14,6 +15,8 @@ from naoqi import ALProxy
 import nltk
 nltk.download('punkt')
 from nltk.tag.stanford import StanfordNERTagger
+from app_vision_pepper_new import GazeController
+from multiprocessing import Process
 
 
 dir_=os.path.abspath('.')+'/'
@@ -54,4 +57,18 @@ def get_name(textin):
 		name = text()
     
     return name
-    
+
+class Vision(object):
+
+	def __init__(self, session, avertgaze = True):
+
+		self.avertgaze = avertgaze
+		self.session = session
+		self.gazeController = GazeController(self.avertgaze)
+
+	def gaze_detect(self, string):
+		print "checkpoint"
+		self.gaze = Process(target = self.gazeController.run)
+		self.gaze.start()
+
+		
