@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/keyboard.css') }}">
+<link rel="shortcut icon" href="/assets/favicon.ico">
+<link rel="stylesheet" href="/assets/dcode.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<h2 class="text"> {{text}} </h2>
+
+<form action = '/inst' method = "POST" >
+<input class="use-keyboard-input" style="position: absolute; top: 130px; right: 30px; width: 300px;" name = "uname"></input>
+<input type = "submit" value = "Continue" />
+<script src="static/js/keyboard.js"></script>
+</form>
+
+
+
+</body>
+</html>
