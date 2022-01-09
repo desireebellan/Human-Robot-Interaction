@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="/static/style.css" type="text/css"> 
+	</head>
+
+	<body>
+		<p style="font-size: 2rem; text-align: center; color: #ffffff">Text / Speech Support</p><br>
+		<form action="/welcome">
+			<div class="speech">
+				<div class="speech-screen">
+                    <!--
+					<div class="app-title">
+						<h1>Speech support</h1>
+					</div>
+                    -->
+					<div class="speech-form">
+				        <div class="control-speech">
+							<p style="font-size: 1rem; text-align: center; color: #ffffff">Question</p>
+							<br>
+							<textarea id="speech-field" name="speech-field" rows="4" cols="50">
+							  Write here the answer to my question if I haven't listened well...
+							</textarea>
+							<br><br>
+							<input type="submit" value="Submit">
+						</div>
+				        <br>
+				        <!--
+						<div class="control-group">
+						<input type="text" class="login-field" value="" placeholder="username" name="username">
+						<label class="login-field-icon fui-user" for="login-name"></label>
+						</div>
+
+						<div class="control-group">
+						<input type="password" class="login-field" value="" placeholder="password" name="password">
+						<label class="login-field-icon fui-lock" for="login-pass"></label>
+						</div>
+
+				        <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" >
+						<br>
+				        -->
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>
