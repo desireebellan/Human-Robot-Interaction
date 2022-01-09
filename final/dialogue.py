@@ -11,6 +11,7 @@ from utility import *
 from app_speech_recognition import *
 from app_animation_pepper import *
 from emotion_recognition.test import *
+from app_vision_pepper_new import *
 
 from random import seed
 from random import randint
@@ -59,30 +60,54 @@ class Dialogue(object):
         return emotion
 
     def answer(self):
-	text1 = self.speech2text.speech().lower()
-	string = "Is this what you said?"
+
+	# choose answer method between: a. speech .b gestures c. tablet
+	string = " How do you want to answer me ?"
 	say(string, self.pip, self.pport)
-	say(str(text1), self.pip, self.pport)
-	text2 = self.speech2text.speech().lower()
-	if 'yes' in text2:
-		return text1
-	else:
+	string = " You can either speeck to me, use your hands or use the tablet !"
+	say(string, self.pip, self.pport)
+	# This choice is done on the tablet
+	# Temporarly with the terminal
+	choice = text().lower()
+
+	# if c. tablet
+	if choice == 'c' or choice == 'tablet':
 		string = "Please type your answer"
 		say(string, self.pip, self.pport)
-		text1 = text().lower()
-		return text1
+		answer = text().lower()
+	else:
+		# if a. speech
+		if choice == 'a' or choice == 'speech':
+			answer = self.speech2text.speech().lower()								
+		# if b. gestures
+		elif choice == 'b' or choice == 'gesture':
+			self.vision.gaze_detect(False)
+			answer = self.vision.gesture()
+			self.vision.gaze_detect(True)
+	
+		string = "Is this what you said?"
+		say(string, self.pip, self.pport)
+		say(str(answer), self.pip, self.pport)
+		answer2 = self.text().lower()
+		if 'yes' in answer:
+			answer  = answer
+		else:
+			string = "Please type your answer"
+			say(string, self.pip, self.pport)
+			answer = text().lower()
+	return answer
           
     def start(self):
         
         # Pepper Introduce himself
 	self.emotion_control.reset()
 	time.sleep(5)
-	self.vision.gaze_detect('start')
-	time.sleep(20)
-	
-        
+	self.vision.gaze_detect(True)
+
+	        
         str = "Hi i'm Pepper ! What is your name ?"
         say(str, self.pip, self.pport)
+	
         
         # Receive answer
         answer = self.speech2text.speech()

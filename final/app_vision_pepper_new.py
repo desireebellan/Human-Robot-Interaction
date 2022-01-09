@@ -1,3 +1,6 @@
+#!usr/bin/env python
+# coding=utf-8
+
 import qi
 import argparse
 import sys
@@ -6,8 +9,10 @@ import os
 import cv2
 import numpy as np
 import math
+import subprocess
 
 from naoqi import ALProxy
+from threading import Thread
 
 class GazeController(object):
 
@@ -15,27 +20,13 @@ class GazeController(object):
         super(GazeController, self).__init__()
         
         self.avertgaze = avertgaze
+	self.stop_thread = False
 
         if self.avertgaze: 
             print("Mode [B]: averted gaze\n")
         else:
             print("Mode [A]: following gaze\n")
-
-	# questa parte, essendo passta completamente a naoqi, non serve in realtà a nulla	
 	
-	'''
-        self.session = qi.Session()
-	self.session.connect("tcp://127.0.0.1:9559")
-	'''
-
-	# non ho capito bene a cosa servissero ALMemory, ALSpeech e ALRobotPosture. Misembra non avessero utilità nel codice e li ho tolti. Il codice da solo comunque funziona lo stesso
-        
-        # Get the service ALMemory.
-	#memory = self.session.service("ALMemory")
-	#subscriber = memory.subscriber("FaceDetected")
-	#subscriber.signal.connect(self.on_human_tracked) 
-	
-        print "motion"
         # Get the services ALMotion
         self.motion = ALProxy("ALMotion", pip, pport )
         # Set Pepper in Stiffness On
@@ -46,35 +37,43 @@ class GazeController(object):
         self.motion.wbEnableEffectorControl(self.effectorName, isEnabled)
         
     def run(self):
-        print("Starting GazeController\n")
-        try:
+            print("Starting GazeController\n")
             # detect faces by default
             self.async_detect_faces()
             
             print("Now sleeping - press ctrlC to quit\n")
             while  True:
-                time.sleep(1)
-        except KeyboardInterrupt:
-            print("Interrupted by user, stopping GazeController\n")
-            
-            # Deactivate Head tracking
-            isEnabled  = False
-            self.motion.wbEnableEffectorControl(self.effectorName, isEnabled)
-            self.stiffnessOff()
-            sys.exit(0)
+               time.sleep(1)
+               if self.stop_thread:
+			print " Closing the camera..."
+			self.stop()
 
     def stiffnessOn(self):
         pNames = "Body"
         pStiffnessLists = 1.0
         pTimeLists = 1.0
         self.motion.stiffnessInterpolation(pNames, pStiffnessLists, pTimeLists)
+
     def stiffnessOff(self):
         pNames = "Body"
         pStiffnessLists = 0.0
         pTimeLists = 0.0
         self.motion.stiffnessInterpolation(pNames, pStiffnessLists, pTimeLists)
+
+    def stop(self):
+        print("Interrupted by user, stopping GazeController\n")
+            
+        # Deactivate Head tracking
+        isEnabled  = False
+        self.motion.wbEnableEffectorControl(self.effectorName, isEnabled)
+        self.stiffnessOff()
+	self.cap.release()
+	self.out.release()
+	cv2.destroyAllWindows()
+        sys.exit(0)
+
+        
     def on_human_tracked(self, key, value, message):
-	print "checkpoint 5"
         
         # HeadYaw 	Head joint twist (Z) 	        -119.5 to 119.5 	-2.0857 to 2.0857
         # HeadPitch Head joint front and back (Y) 	-40.5 to 36.5 	    -0.7068 to 0.6371
@@ -94,7 +93,6 @@ class GazeController(object):
         names = ["HeadYaw", "HeadPitch"]
         angleList = [new_angle_x * math.pi/180.0, new_angle_y * math.pi/180.0]
         reverseAngleList = [-new_angle_x * math.pi/180.0, -new_angle_y * math.pi/180.0]
-	print "checkpoint 6"
 
 	# Da qui in poi il codice non va avanti
 
@@ -103,33 +101,27 @@ class GazeController(object):
         else: # look straight
             
             self.motion.setAngles(names, angleList, 0.9)
-	print " checkpoint 7"
 
     def async_detect_faces(self):
         print("Initiating detection\n")
         # Define paths
         base_dir = os.path.dirname(__file__) +'/'
-        prototxt_path = os.path.join('model_data/deploy.prototxt')
+	#base_dir = os.path.dirname(__file__) 
+        prototxt_path = os.path.join(base_dir + 'model_data/deploy.prototxt')
         caffemodel_path = os.path.join(base_dir + 'model_data/weights.caffemodel')
         # Read the model
         model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
-	print "checkpoint 2"
         
         # Retrieve video
-	# Qui l'ho provato sia con uno dei video caricati di Edoardo sia con la mia webcam
-        cap = cv2.VideoCapture('videos/vtest.avi')
-	#cap = cv2.VideoCapture("/dev/video0")
-	print "checkpoint 3"
+	self.cap = cv2.VideoCapture("/dev/video0")
         # New video writer
-        fourcc = int(cap.get(cv2.CAP_PROP_FOURCC))
-        fps = float(cap.get(cv2.CAP_PROP_FPS))
-        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        out = cv2.VideoWriter('videos/output_0.avi', fourcc, fps, (width,  height))
-	print cap.isOpened()
-	print"checkpoint 4"
-        while cap.isOpened():
-            ret, frame = cap.read()
+        fourcc = int(self.cap.get(cv2.CAP_PROP_FOURCC))
+        fps = float(self.cap.get(cv2.CAP_PROP_FPS))
+        width = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        self.out = cv2.VideoWriter('videos/output_0.avi', fourcc, fps, (width,  height))
+        while self.cap.isOpened() and not self.stop_thread:
+            ret, frame = self.cap.read()
             # if frame is read correctly ret is True
             if not ret:
                 print("Can't receive frame (stream end?). Exiting ...\n")
@@ -155,42 +147,37 @@ class GazeController(object):
                     self.on_human_tracked("key", box.astype("int"), "message")
                 
             # Write the new frame
-            out.write(image)
-        cap.release()
-        out.release()
+	    cv2.imshow("Image", image)
+            self.out.write(image)
+        self.cap.release()
+        self.out.release()
+	cv2.destroyAllWindows()
         print("Detection completed\n")
 
+class Vision(object):
 
+	def __init__(self, session, avertgaze = True):
 
-if __name__ == "__main__":
-    
-    parser = argparse.ArgumentParser()
+		self.avertgaze = avertgaze
+		self.session = session
+		self.gazeController = GazeController(self.avertgaze)
+		
+	def gaze_detect(self, backgrnd = True):
 
-    parser.add_argument("--pip", type=str, default='127.0.0.1', 
-                        help="Robot IP address.  On robot or Local Naoqi: use '127.0.0.1'.")
-    parser.add_argument("--pport", type=int, default=9559,
-                        help="Naoqi port number.")
-    parser.add_argument("avertgaze", type=bool, default=True,
-                        help="Robot behaviour: following/averting gaze.")
-    
-    args = parser.parse_args()
-    pip = args.pip
-    pport = args.pport
-    avertgaze = args.avertgaze
+		if backgrnd:	
+			print " Starting the thread..."
+			self.gazeController.stop_thread = False
+			self.tmp = Thread(target = self.gazeController.run)
+			self.tmp.start()
+		else:
+			print "Closing the thread..."
+			self.gazeController.stop_thread = True
+			self.tmp.join()
+						
+	def gesture(self):
+		print("---Trying to call the subprocess---")
+		p = subprocess.Popen(["python3.7","vision_pepper_slave_finger_counter.py"], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+		out, err = p.communicate()
+		print(out)
 
-    #Starting application
-    '''
-    try:
-        connection_url = "tcp://" + pip + ":" + str(pport)
-        print("trying to connect to "+str(connection_url)+"\n")
-        app = qi.Application(["Eyegaze", "--qi-url=" + connection_url ])
-        print("connected to "+str(connection_url)+"\n")
-    except RuntimeError:
-        print ("Can't connect to Naoqi at ip \"" + pip + "\" on port " + str(pport) +".\n"
-               "Please check your script arguments. Run with -h option for help.")
-        sys.exit(1)
-    '''
-    gazeController = GazeController(app, avertgaze, pip, pport )
-
-    gazeController.run()
 
