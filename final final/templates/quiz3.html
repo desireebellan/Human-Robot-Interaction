@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h1 class="text number"> {{number}} </h1>
+<h1 class="text" style = "font-size: 60px" > {{text}} </h1>
+
+<div class = "row"> 
+    {%if choice1_template%}
+    <a href={{choice1_template}} class = "button button3">{{choice1}}</a>
+    {%else%}
+    <button class = "button button3">SPEAK</button>
+    {% endif %}
+    {% if  choice2_template%}
+    <a href={{choice2_template}} class = "button button3">{{choice2}}</a>
+    {% else %}
+    <button class = "button button3">HANDS</button>
+    {% endif %}
+
+    <form action = '/write' method = "POST">
+		<input name = "mode" style="display:none"></input>
+		<input class="button button3" type = "submit" value = "WRITE" />
+    </form>
+    
+</div>
+<button class = "button open-info" onclick = "openPopUp()">?</button>
+<div class = "popup" id = "popup">
+	{% if mode == 'a' %}
+		<p> You have to tell Pepper a sentence </p>
+		<p> expressing the feeling he chooses. </p>
+		<p> You can either say it to him using the button SPEAK </p>
+		<p> Or write it on a keyboard using the button WRITE </p>
+	{% elif mode == 'b' %}
+	{% endif %}
+	<button class = "close-info" onclick = "closePopUp()">CLOSE</button>
+</div>
+
+</body>
+<script>
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.style = 'background-color:'.concat(buttonColor);});
+
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].style = 'background-color:'.concat(bckgrndColor);
+
+function openPopUp(){
+	document.getElementById("popup").style.display = "block";
+}
+
+function closePopUp(){
+	document.getElementById("popup").style.display = "none";
+}
+</script>
+</html>

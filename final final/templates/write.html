@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/keyboard2.css') }}">
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="shortcut icon" href="/assets/favicon.ico">
+<link rel="stylesheet" href="/assets/dcode.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="static/js/keyboard3.js"></script>
+</head>
+<body>
+
+<h2 class="text"> {{text}} </h2>
+
+<!--
+<form action = '/inst' method = "POST" >
+<input class="use-keyboard-input" style="position: absolute; top: 130px; right: 30px; width: 300px;" name = "uname"></input>
+<input type = "submit" value = "Continue" />
+<script src="static/js/keyboard.js"></script>
+</form>
+
+<div id="container">
+    <textarea id="write" rows="6" cols="60"></textarea>
+    <ul id="keyboard">
+        
+        <li class="letter">q</li>
+        <li class="letter">w</li>
+        <li class="letter">e</li>
+        <li class="letter">r</li>
+        <li class="letter">t</li>
+        <li class="letter">y</li>
+        <li class="letter">u</li>
+        <li class="letter">i</li>
+        <li class="letter">o</li>
+        <li class="letter">p</li>
+        <li class="delete lastitem">delete</li>
+        <li class="capslock">caps lock</li>
+        <li class="letter">a</li>
+        <li class="letter">s</li>
+        <li class="letter">d</li>
+        <li class="letter">f</li>
+        <li class="letter">g</li>
+        <li class="letter">h</li>
+        <li class="letter">j</li>
+        <li class="letter">k</li>
+        <li class="letter lastitem">l</li>
+        <li class="letter">z</li>
+        <li class="letter">x</li>
+        <li class="letter">c</li>
+        <li class="letter">v</li>
+        <li class="letter">b</li>
+        <li class="letter">n</li>
+        <li class="letter">m</li>
+        <li class="space lastitem">&nbsp;</li>
+    </ul>
+</div>
+-->
+
+<div id = "keyboard_container">
+	<input id = "name" class = "uname"></input>
+	<div class = "row1">
+	<button class = "button key" onclick = "Write('Q')"> Q </button>
+	<button class = "button key" onclick = "Write('W')"> W </button>
+	<button class = "button key" onclick = "Write('E')"> E </button>
+	<button class = "button key" onclick = "Write('R')"> R </button>
+	<button class = "button key" onclick = "Write('T')"> T </button>
+	<button class = "button key" onclick = "Write('Y')"> Y </button>
+	<button class = "button key" onclick = "Write('U')"> U </button>
+	<button class = "button key" onclick = "Write('I')"> I </button>
+	<button class = "button key" onclick = "Write('O')"> O </button>
+	<button class = "button key" onclick = "Write('P')"> P </button>
+	<button class = "button material-icons delete key" style="font-size:80px" onclick = "Write('-')">delete</button>
+	</div>
+	<div class = "row2">
+	<button class = "button key" onclick = "Write('A')"> A </button>
+	<button class = "button key" onclick = "Write('S')"> S </button>
+	<button class = "button key" onclick = "Write('D')"> D </button>
+	<button class = "button key" onclick = "Write('F')"> F </button>
+	<button class = "button key" onclick = "Write('G')"> G </button>
+	<button class = "button key" onclick = "Write('H')"> H </button>
+	<button class = "button key" onclick = "Write('J')"> J </button>
+	<button class = "button key" onclick = "Write('K')"> K </button>
+	<button class = "button key" onclick = "Write('L')"> L </button>
+	</div>
+	<div class = "row3">
+	<button class = "button key" onclick = "Write('Z')"> Z </button>
+	<button class = "button key" onclick = "Write('X')"> X </button>
+	<button class = "button key" onclick = "Write('C')"> C </button>
+	<button class = "button key" onclick = "Write('V')"> V </button>
+	<button class = "button key" onclick = "Write('B')"> B </button>
+	<button class = "button key" onclick = "Write('N')"> N </button>
+	<button class = "button key" onclick = "Write('M')"> M </button>
+	<button id = "space" class = "button key" onclick = "Write(' ')"> SPACE </button>
+	</div>
+	<div class = row1>
+	{% if quiz %}
+		<form action = '/solution' method = 'POST'>
+			<input name = "mode" style="display:none;"></input>
+			<input name = "uname" style="display:none;"></input>
+			<input type = "submit" class="button" style = "border:none;" value = "SUBMIT" />
+		</form>
+	{% else %}
+		<form action = '/inst' method = "POST" >
+		<input name = "uname" style="display:none"></input>
+		<input type = "submit" class="button" style = "width:500px" value = "CONTINUE" />	
+		</form>
+	{% endif %}
+	</div>
+</div>
+	
+</body>
+<script>
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.style = 'background-color:'.concat(buttonColor);});
+
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].style = 'background-color:'.concat(bckgrndColor);
+
+document.getElementsByName("mode")[0].value = localStorage.getItem('mode');
+
+
+function Write(letter){
+	var value = document.getElementById("name").value;
+	if (letter != '-'){document.getElementById("name").value = value.concat(letter);}
+	else{document.getElementById("name").value = value.substring(0, value.length - 1);}
+	Array.prototype.forEach.call(document.getElementsByName("uname"), function(el){el.value = document.getElementById("name").value;});
+}
+</script>
+</html>

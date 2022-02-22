@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="shortcut icon" href="/assets/favicon.ico">
+</head>
+<body>
+
+	{% if mode == 'a' %}
+		<h1 class="text" style = "font-size: 60px" > YOUR SCORE IS {{score}} </h1>
+		{% if score >= 7 %}
+		<h1 class="text" style = "font-size: 60px" > THE ANSWER IS CORRECT, GOOD JOB {{name}}! </h1>
+		{% elif score >= 5 and score < 7 %}
+		<h1 class="text" style = "font-size: 60px" > NOT BAD {{name}}! </h1>
+		{% else %}
+		<h1 class="text" style = "font-size: 60px" > OH NO! YOU WILL DO BETTER NEXT TIME </h1>
+		{% endif %}
+	{% elif mode == 'b' %}
+		{% if score == 1 %}
+		<h1 class="text" style = "font-size: 60px" > THE ANSWER IS CORRECT, GOOD JOB {{name}}! </h1>
+		{% else %}
+		<h1 class="text" style = "font-size: 60px" > THE ANSWER SEEMS TO BE UNCORRECT </h1>
+		<h1 class="text" style = "font-size: 60px" > THE CORRECT ANSWER WAS {{correct}} </h1>
+		{% endif %}
+	{% else %}
+		<h1 class="text" style = "font-size: 60px" > ERROR MODE </h1>
+	{% endif %}
+
+	<form action = '/quiz' method = "POST">
+		<input name = "mode" style="display:none"></input>
+		<input name = "numQuiz" style="display:none"></input>
+		<input class="button " type = "submit" value = "CONTINUE" />
+    </form>
+	
+</body>
+<script>
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.style = 'background-color:'.concat(buttonColor);});
+
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].style = 'background-color:'.concat(bckgrndColor);
+
+document.getElementsByName("mode")[0].value = localStorage.getItem('mode');
+document.getElementsByName("numQuiz")[0].value = localStorage.getItem('numQuiz');
+</script>
+</html>

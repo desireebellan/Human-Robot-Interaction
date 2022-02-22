@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h1 class="title"> Settings</h1>
+
+<div class = "setting">
+	<div class = "textSetting"> Select the game type! </div>
+	<div class = "buttonSetting"> <!-- change type of game, either for autistic or for neurotypical child-->
+		<button onclick = "changeMode('a')" class = "button settingButton">MODE A</button> 
+		<button onclick = "changeMode('b')" class = "button settingButton">MODE B</button> 
+	</div>
+</div>
+
+<div class = "setting">
+	<div class = "textSetting"> Choose the color! </div>
+	<div class = "buttonSetting">
+		<button onclick = "changeColor('red')" class = "button colorButton colorRed"></button>
+		<button onclick = "changeColor('blue')" class = "button colorButton colorBlue"></button>
+	</div>
+</div>
+
+<div class = "setting">
+	<div class = "textSetting"> Select the number of questions! </div>
+	<div class = "buttonSetting">
+		<button onclick = "numQuiz(2)" class = "button settingButton" style = "margin-left:100px"> 2 </button>
+		<button onclick = "numQuiz(3)" class = "button settingButton" style = "margin-left:100px"> 3 </button>
+		<button onclick = "numQuiz(4)" class = "button settingButton" style = "margin-left:100px"> 4 </button>
+		<button onclick = "numQuiz(5)" class = "button settingButton" style = "margin-left:100px"> 5 </button>
+	</div>
+
+</div>
+<a id = "welcomeBack" href = "/welcome" class="button getBack"> Home </a>
+
+
+</body>
+<script>
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].style = 'background-color:'.concat(bckgrndColor);
+
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.style = 'background-color:'.concat(buttonColor);});
+
+if (localStorage.getItem('start') == 'true'){
+	var id = document.getElementsByClassName("settingButton");
+	Array.prototype.forEach.call(id, function(el){el.style = 'background-color:'.concat('Gray');});
+}
+
+function changeColor(color){
+		if (color == 'red'){
+			localStorage.setItem("background", 'Tomato');
+			document.getElementsByTagName("body")[0].style = 'background-color:'.concat('Tomato');
+			localStorage.setItem("button", 'DarkOrange');
+			Array.prototype.forEach.call(document.getElementsByClassName("settingButton"), function(el){el.style = 'background-color:'.concat('DarkOrange');});}
+		else{
+			localStorage.setItem("background", 'LightBlue');
+			document.getElementsByTagName("body")[0].style = 'background-color:'.concat('LightBlue');
+			localStorage.setItem("button", 'LightGreen');
+			Array.prototype.forEach.call(document.getElementsByClassName("settingButton"), function(el){el.style = 'background-color:'.concat('LightGreen');});}
+		console.log(localStorage.getItem("background"));
+	}
+
+function changeMode(mode){
+	if (localStorage.getItem('start') == 'false'){
+		localStorage.setItem('mode', mode);
+	}
+	console.log(localStorage.getItem("mode"));
+}
+
+function numQuiz(num){ 
+	if (localStorage.getItem('start') == 'false'){ localStorage.setItem("numQuiz", num); console.log('here');}
+	console.log(localStorage.getItem("numQuiz"));
+	console.log(localStorage.getItem('start'));
+}
+
+</script>
+</html>

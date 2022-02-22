@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body >
+
+<h2 class="text" style = "font-size: 80px"> {{text}} </h2>
+
+<div class = "row"> 
+    {%if choice1_template%}
+	{% if choice1_template == '/instructions' %}
+	<form action = {{choice1_template}} method = "POST">
+		<input name = "mode" style="display:none"></input>
+		<input name = "repeat" style="display:none"></input>
+		<input class="button button2" type = "submit" value = "{{choice1}}" />
+	</form>
+	<script> document.getElementsByName("repeat")[0].value = 'false'; </script>
+	{% else %}
+    	<a href={{choice1_template}} class = "button button2">{{choice1}}</a>
+	{% endif %}
+    {%else%}
+    <button class = "button button2">{{choice1}}</button>
+    {% endif %}
+    {% if  choice2_template %}
+	{%if choice2_template == '/quiz' %}
+	<form action = {{choice2_template}} method = "POST">
+		<input name = "mode" style="display:none"></input>
+		<input name = "numQuiz" style = "display:none"></input>
+		<input class="button button2" type = "submit" value = "{{choice2}}" />
+	</form>
+	{% else %}
+    	<a href={{choice2_template}} class = "button button2">{{choice2}}</a>
+	{% endif %}
+    {% else %}
+    <button class = "button button2">{{choice2}}</button>
+    {% endif %}
+    
+</div>
+
+<a href = "/settings" class="button getBack"> Settings </a>
+
+</body>
+<script>
+if (localStorage.getItem('start') != true){ localStorage.setItem('start', true);}
+
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].style = 'background-color:'.concat(bckgrndColor);
+
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.style = 'background-color:'.concat(buttonColor);});
+
+Array.prototype.forEach.call(document.getElementsByName("mode"), function(el){el.value = localStorage.getItem("mode")});
+
+document.getElementsByName("numQuiz")[0].value = localStorage.getItem('numQuiz');
+
+</script>
+</html>

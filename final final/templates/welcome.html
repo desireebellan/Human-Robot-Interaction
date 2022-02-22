@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<h1 class="title"> Welcome to the Emotion Game</h1>
+<div class = "welcome_buttons">
+<!--<a href="/start" class = "button button_welcome">Start</a>-->
+
+<form action = '/start' method = "POST" >
+<input name = "mode" style="display:none"></input>
+<input class="button button_welcome"  type = "submit" value = "Start" />
+</form>
+
+<a href = "/settings" class="button button_welcome"> Settings </a>
+</div>
+</body>
+
+<script>
+localStorage.setItem('start', false);
+
+if(localStorage.getItem("background") == null){
+	var bckgrndColor ="LightBlue";
+	localStorage.setItem('background',bckgrndColor);}
+else{
+	var bckgrndColor = localStorage.getItem("background");	
+}
+
+if(localStorage.getItem("button") == null){
+	var buttonColor ="LightGreen";
+	localStorage.setItem('button',buttonColor);}
+else{
+	var buttonColor = localStorage.getItem("button");
+}
+
+if(localStorage.getItem("mode") == null){
+	localStorage.setItem("mode", 'b');
+}
+
+if(localStorage.getItem("numQuiz") == null){
+	localStorage.setItem("numQuiz", 2);
+}
+
+document.getElementsByTagName("body")[0].style = 'background-color:'.concat(bckgrndColor);
+
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.style = 'background-color:'.concat(buttonColor);});
+
+document.getElementsByName("mode")[0].value = localStorage.getItem("mode")
+</script>
+</html>
