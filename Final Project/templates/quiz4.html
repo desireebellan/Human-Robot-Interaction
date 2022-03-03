@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Emotion Game - HRI project </title>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel = "shortcut icon" href = "{{ url_for('static', filename='img/favicon.ico') }}">
+<script src="https://kit.fontawesome.com/e6dfc43f11.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<h1 class="text" style = "font-size: 60px" > {{text}} </h1>
+
+<div class = "row"> 
+	<form action = '/solution' method = 'POST'>
+			<input name = "hands" style="display:none;" value = "false"></input>
+			<input name = "uname" style="display:none;" value = "HAPPY"></input>			
+			<input class = "button button4 far fa-grin-alt" type = "submit" value = "&#xf581"/>
+	</form>
+	<form action = '/solution' method = 'POST'>
+			<input name = "hands" style="display:none;" value = "false"></input>
+			<input name = "uname" style="display:none;" value = "SAD"></input>			
+			<input class = "button button4 far fa-sad-tear" type = "submit" value = "&#xf5b4"/>
+	</form>
+	<form action = '/solution' method = 'POST'>
+			<input name = "hands" style="display:none;" value = "false"></input>
+			<input name = "uname" style="display:none;" value = "ANGRY"></input>			
+			<input class = "button button4 far fa-angry" type = "submit" value = "&#xf556"/>
+	</form>
+	<form action = '/solution' method = 'POST'>
+			<input name = "hands" style="display:none;" value = "false"></input>
+			<input name = "uname" style="display:none;" value = "FEAR"></input>			
+			<input class = "button button4 far fa-frown-open" type = "submit" value = "&#xf57a"/>
+	</form>   
+</div>
+<button class = "button open-info" onclick = "openPopUp()">?</button>
+<a href = "/settings" class="button getBack"> Settings </a>
+<div class = "popup" id = "popup">
+		<p> You have to choose which emotion </p>
+		<p> Pepper is feeling, between 1) HAPPY, 2) SAD, </p>
+		<p> 3) ANGRY and 4) FEAR using what he says </p>
+		<p> And it's movement as clues! <p>
+		<br>
+		<p> Click on SPEAK to say your answer </p>
+		<p> Click on HAND to sign the number of the answer </p>
+		<p> Click on WRITE to use the TABLET buttons instead! </p>
+	<button class = "close-info" onclick = "closePopUp()">CLOSE</button>
+</div>
+
+</body>
+<script>
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].className = bckgrndColor;
+
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button");
+Array.prototype.forEach.call(button, function(el){el.classList.add(buttonColor);});
+
+function openPopUp(){
+	document.getElementById("popup").style.display = "block";
+}
+
+function closePopUp(){
+	document.getElementById("popup").style.display = "none";
+}
+</script>
+</html>

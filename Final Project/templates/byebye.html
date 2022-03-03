@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Emotion Game - HRI project </title>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel = "shortcut icon" href = "{{ url_for('static', filename='img/favicon.ico') }}">
+</head>
+<body >
+<div id = "container">
+<h1 class="text" style = "font-size: 100px" > {{text}} </h1>
+<div class = 'row'>
+	<a href = '/welcome' class="button submit">HOME</a>
+</div>	
+</div>
+</body>
+<script>
+
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].className = bckgrndColor;
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button")
+Array.prototype.forEach.call(button, function(el){el.classList.add(buttonColor);});
+
+</script>
+</html>
