@@ -50,6 +50,9 @@ unzip stanford-ner
 ## Solved Issues
 If punkt.zip is not downloading properly, try
 ```
+cd ~
+mkdir -p nltk_data/tokenizers && cd nltk_data/tokenizers
 wget https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip
+unzip punkt.zip
 
 ```
