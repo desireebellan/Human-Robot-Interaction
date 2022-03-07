@@ -47,4 +47,9 @@ wget https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
 mv stanford-ner-4.2.0.zip stanford-ner.zip
 unzip stanford-ner
 ```
+## Issues
+If punkt.zip is not downloading properly, try
+```
+wget https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip
 
+```
