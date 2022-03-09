@@ -17,6 +17,7 @@ sudo python3 get-pip.py
 sudo rm get-pip.py
 ```
 ## Instructions
+### Setup
 Copy the reporitory locally
 
 ```
