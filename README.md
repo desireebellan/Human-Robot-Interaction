@@ -49,11 +49,19 @@ mv stanford-ner-4.2.0.zip stanford-ner.zip
 unzip stanford-ner
 ```
 ## Solved Issues
-If punkt.zip is not downloading properly, try
+
+* If punkt.zip is not downloading properly, try
 ```
 cd ~
 mkdir -p nltk_data/tokenizers && cd nltk_data/tokenizers
 wget https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip
 unzip punkt.zip
-
+```
+* To install python3.7 on ubuntu16.04
+```
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.7
 ```
