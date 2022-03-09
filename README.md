@@ -11,8 +11,8 @@ To install pip2 and pip3
 ```
 wget https://bootstrap.pypa.io/pip/2.7/get-pip.py 
 sudo python2 get-pip.py
-sudo rm get-pip-py
-wget https://bootstrap.pypa.io/pip/3.7/get-pip.py 
+sudo rm get-pip.py
+wget https://bootstrap.pypa.io/pip/get-pip.py 
 sudo python3 get-pip.py
 sudo rm get-pip.py
 ```
