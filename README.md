@@ -30,7 +30,7 @@ To use the library nltk.tag.stanford.StandfordNERTagger you need to execute the 
 ```
 sudo apt-get install default-jdk
 ```
-* Add your path to Java folder in [Final Project/dialogue.py](Final\ Project/dialogue.py)
+* Add your path to Java folder in [Final Project/dialogue.py](Final%20Project/dialogue.py)
 * Install nltk
 ```
 pip2 install nltk==3.4
