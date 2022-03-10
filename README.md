@@ -6,6 +6,8 @@
 * python2==python2.7
 * python3==python3.7
 
+Check the required packages in the file [requirements.txt](requirements.txt). 
+
 To install pip2 and pip3
 
 ```
