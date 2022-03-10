@@ -30,7 +30,7 @@ To use the library nltk.tag.stanford.StandfordNERTagger you need to execute the 
 ```
 sudo apt-get install default-jdk
 ```
-* Add your path to Java folder in _[Final Project/utility.py](Final Project/utility.py)
+* Add your path to Java folder in [Final Project/utility.py](Final Project/utility.py)
 * Install nltk
 ```
 pip2 install nltk==3.4
