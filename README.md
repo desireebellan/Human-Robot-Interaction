@@ -6,7 +6,7 @@
 * python2==python2.7
 * python3==python3.7
 
-Check the required packages in the file [requirements.txt](requirements.txt). 
+Check the required packages in the file [requirements3.txt](requirements3.txt). 
 
 To install pip2 and pip3
 
@@ -30,7 +30,7 @@ To use the library nltk.tag.stanford.StandfordNERTagger you need to execute the 
 ```
 sudo apt-get install default-jdk
 ```
-* Add your path to Java folder in [Final Project/dialogue.py](Final%20Project/dialogue.py)
+* Add your path to Java folder in [emotionPepper/dialogue.py](emotionPepper/dialogue.py)
 * Install nltk
 ```
 pip2 install nltk==3.4
@@ -45,7 +45,7 @@ unzip punkt.zip
 ```
 * Download and unzip the folder stenford-ner:
 ```
-cd HRI_project/Final\ Project
+cd HRI_project/emotionPepper
 wget https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
 mv stanford-ner-4.2.0.zip stanford-ner.zip
 unzip stanford-ner
