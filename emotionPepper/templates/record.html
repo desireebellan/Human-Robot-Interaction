@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Emotion Game - HRI project </title>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel = "shortcut icon" href = "{{ url_for('static', filename='img/favicon.ico') }}">
+</head>
+<body>
+<div id = "content">
+<h1 class="text" style = "font-size: 80px"> RECORD ! </h1>
+
+<div class = "row"> 
+    <form action = {{url_for('record')}} >
+    	<button id = "startRec" class = "button button2" >START</button>
+    </form>
+    <form action = {{url_for('stopRecord')}} >
+    	<button id = "stopRec" class = "button button2" disabled >STOP</button>
+    </form>
+</div>
+    {% if get == 'name' %}
+    <div class = "row"> 
+    <form action = '/checkName'>
+	<button id = "submit" class = "button submit" onclick = "loading()" disabled>SUBMIT</button>
+    </form>
+    </div> 
+    {% else %}
+    <div class = "row"> 
+    <a id = "submit" class="button submit" href = '/solution' onclick = "loading()" disabled/>SUBMIT</a>
+    </div> 
+    {% endif %}
+<button class = "button open-info" onclick = "openPopUp()">?</button>
+<form action = '/settings' method = "POST" >
+	<input name = "start" style="display:none" value = "true" ></input>
+	<input class = "button getBack"  type = "submit" value = "Settings" />
+</form>
+</div>  
+<div id = "loading" class = "loading">
+	<img src = "{{ url_for('static', filename='img/loading.gif') }}" style = "width:500px"/>
+</div>
+
+
+<div class = "popup" id = "popup">
+		<p> Press START to start recording </p>
+		<p> Than say your answer! </p>
+		<p> Press STOP to stop recording </p>
+		<p> If you're not satisfied, you can record </p>
+		<p> Again anytime you want </p>
+		<p> Press SUBMIT to continue </p>
+	<button class = "close-info" onclick = "closePopUp()">X</button>
+
+</body>
+<script>
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button");
+button[0].classList.add(buttonColor);
+button[1].style = 'background-color: Gray';
+button[2].style = 'background-color: Gray';
+button[3].classList.add(buttonColor);
+button[4].classList.add(buttonColor);
+
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].className = bckgrndColor;
+
+function openPopUp(){
+	document.getElementById("popup").style.display = "block";
+}
+
+function closePopUp(){
+	document.getElementById("popup").style.display = "none";
+}
+
+// record
+
+var recordButton = document.getElementById("startRec");
+var stopButton = document.getElementById("stopRec");
+var submit = document.getElementById("submit");
+
+recordButton.addEventListener("click", startRecording);
+stopButton.addEventListener("click", stopRecording);
+
+// Record function
+
+function startRecording() { 
+	console.log("recordButton clicked"); 
+	recordButton.disabled = true;
+	stopButton.disabled = false;
+	submit.disabled = true;
+	
+	recordButton.classList.toggle(buttonColor)
+	recordButton.style = 'background-color: Gray';
+	stopButton.classList.toggle(buttonColor);
+	submit.classList.remove(buttonColor);
+	submit.style = 'background-color: Gray';
+	
+
+}
+
+function stopRecording() {
+    console.log("stopButton clicked");
+
+    stopButton.disabled = true;
+    recordButton.disabled = false;
+    submit.disabled = false;
+    
+    recordButton.classList.toggle(buttonColor);
+    stopButton.classList.toggle(buttonColor);
+    stopButton.style = 'background-color: Gray';
+    submit.classList.add(buttonColor);
+
+}
+
+Array.prototype.forEach.call(document.getElementsByName("mode"), function(el){el.value = localStorage.getItem("mode")});
+
+// LOADING
+function loading(){
+	document.getElementById("loading").style.display = 'flex';
+	document.getElementById("content").style.display = 'none';
+}
+</script>
+</html>

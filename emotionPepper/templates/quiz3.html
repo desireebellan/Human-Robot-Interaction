@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Emotion Game - HRI project </title>
+<link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel = "shortcut icon" href = "{{ url_for('static', filename='img/favicon.ico') }}">
+</head>
+<body>
+
+<h1 class="text number"> {{number}} </h1>
+<h1 class="text" style = "font-size: 60px" > {{text}} </h1>
+
+<div class = "row"> 
+    <form action = '/speak' method = "POST">
+    		<input name = "get" style="display:none" value = "answer" ></input>
+		<input class="button button2" type = "submit" value = "SPEAK" />
+    </form>
+    {% if  choice2_template%}
+    <a href={{choice2_template}} class = "button button3">{{choice2}}</a>
+    {% else %}
+    <button class = "button button3">HANDS</button>
+    {% endif %}
+
+    {% if mode == 'a' %}
+    <form action = '/write' method = "POST">
+		<input name = "mode" style="display:none"></input>
+		<input class="button button3" type = "submit" value = "WRITE" />
+    </form>
+    {% elif mode == 'b' %}
+    <a href='/smiles' class = "button button3">WRITE</a>
+    {% endif %}
+    
+</div>
+<button class = "button open-info" onclick = "openPopUp()">?</button>
+<div class = "popup" id = "popup">
+	{% if mode == 'a' %}
+		<p> You have to tell Pepper a sentence </p>
+		<p> expressing the feeling he chooses. </p>
+		<p> You can either say it to him using the button SPEAK </p>
+		<p> Or write it on a keyboard using the button WRITE </p>
+	{% elif mode == 'b' %}
+		<p> You have to choose which emotion Pepper is feeling </p>
+		<p> Between 1) HAPPY, 2) SAD, 3) ANGRY and 4) FEAR </p>
+		<p> using what he says And it's movement as clues!</p>
+		<p> Click on SPEAK to say your answer </p>
+		<p> Click on HAND to sign the number of the answer </p>
+		<p> Click on WRITE to use the TABLET buttons instead! </p>
+	{% endif %}
+	<button class = "close-info" onclick = "closePopUp()">X</button>
+</div>
+
+</body>
+<script>
+var bckgrndColor = localStorage.getItem("background");
+document.getElementsByTagName("body")[0].className = bckgrndColor;
+
+var buttonColor = localStorage.getItem("button");
+var button = document.getElementsByClassName("button");
+Array.prototype.forEach.call(button, function(el){el.classList.add(buttonColor);});
+
+function openPopUp(){
+	document.getElementById("popup").style.display = "block";
+}
+
+function closePopUp(){
+	document.getElementById("popup").style.display = "none";
+}
+</script>
+</html>
