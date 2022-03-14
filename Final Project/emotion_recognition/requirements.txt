@@ -1,6 +1,3 @@
-keras==2.2.4
-tensorflow==1.12.1
-numpy==1.16.2
-pandas==0.23.4
-sklearn==0.20.2
-tqdm==4.28.1
+version https://git-lfs.github.com/spec/v1
+oid sha256:5ace8530fadb1cea538602d06d60aa00066f8f742f231cf739dedb210e869d7d
+size 94

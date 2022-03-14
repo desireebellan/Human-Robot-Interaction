@@ -1,19 +1,3 @@
-import numpy as np
-from string import punctuation
-
-# make it a set to accelerate tests
-punc = set(punctuation)
-
-def clean_text(text):
-    return ''.join([ c.lower() for c in str(text) if c not in punc ])
-
-def tokenize_words(words, vocab2int):
-    words = words.split()
-    tokenized_words = np.zeros((len(words),))
-    for j in range(len(words)):
-        try:
-            tokenized_words[j] = vocab2int[words[j]]
-        except KeyError:
-            # didn't add any unk, just ignore
-            pass
-    return tokenized_words
+version https://git-lfs.github.com/spec/v1
+oid sha256:163ddcf6b6ae144bbffcb175de801f5950ffa17b1ba09971f554cbb0da607c7f
+size 547

@@ -1,17 +1,3 @@
-
-### Model Architecture hyper parameters
-embedding_size = 32
-# sequence_length = 500
-sequence_length = 33
-LSTM_units = 128
-
-### Training parameters
-batch_size = 64
-epochs = 20
-
-### Preprocessing parameters
-# words that occur less than n times to be deleted from dataset
-N = 10
-
-# test size in ratio, train size is 1 - test_size
-test_size = 0.2
+version https://git-lfs.github.com/spec/v1
+oid sha256:5c0c3eaa7d09f7aa80f3e02dd848bb7ba56e8f87a6464e94589651f3293c8ceb
+size 359

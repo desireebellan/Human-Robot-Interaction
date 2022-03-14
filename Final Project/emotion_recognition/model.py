@@ -1,14 +1,3 @@
-from keras.models import Sequential
-from keras.layers import Embedding, LSTM, Dense, Activation, LeakyReLU, Dropout, TimeDistributed
-from keras.layers import SpatialDropout1D
-from emotion_recognition.config import LSTM_units
-
-def get_model_emotions(vocab_size, sequence_length, embedding_size):
-    model=Sequential()
-    model.add(Embedding(vocab_size, embedding_size, input_length=sequence_length))
-    model.add(SpatialDropout1D(0.15))
-    model.add(LSTM(LSTM_units, recurrent_dropout=0.2))
-    model.add(Dropout(0.3))
-    model.add(Dense(5, activation="softmax"))
-    # model.summary()
-    return model
+version https://git-lfs.github.com/spec/v1
+oid sha256:3321c2472dec284e9dc8107f1419bb69f614742f5a9c9193042a2302a2910199
+size 621
