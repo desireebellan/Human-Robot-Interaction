@@ -50,6 +50,7 @@ wget https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
 mv stanford-ner-4.2.0.zip stanford-ner.zip
 unzip stanford-ner
 ```
+* Download the folder model_data [here](https://drive.google.com/uc?id=1Jjjq2LOyrwcQRIZAhU-ZA0IyvQ7NPLAi&export=download) and unzip it inside HRI_project/emotionPepper
 ## Solved Issues
 
 * If punkt.zip is not downloading properly, try
