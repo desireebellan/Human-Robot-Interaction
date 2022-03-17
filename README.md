@@ -6,7 +6,7 @@
 * python2==python2.7
 * python3==python3.7
 
-Check the required packages in the file [requirements3.txt](requirements3.txt). 
+Check the required packages in the file [requirements3.txt](requirements3.txt) for python3 and [requirements2.txt](requirements2.txt) for python2. 
 
 To install pip2 and pip3
 
@@ -51,6 +51,18 @@ mv stanford-ner-4.2.0.zip stanford-ner.zip
 unzip stanford-ner
 ```
 * Download the folder model_data [here](https://drive.google.com/uc?id=1Jjjq2LOyrwcQRIZAhU-ZA0IyvQ7NPLAi&export=download) and unzip it inside HRI_project/emotionPepper
+* Download the packages naoqi and pynaoqi
+### Launh the app
+* Open naoqi
+```
+cd ~/naosoftware/naoqi
+./naoqi
+```
+* Open Choregraphe and connect to the local server (IP: 127.00...., PORT: 9959....)
+* On a different terminal launch the app
+```
+python3.7 app.py
+```
 ## Solved Issues
 
 * If punkt.zip is not downloading properly, try
