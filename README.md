@@ -1,6 +1,18 @@
-# HRI_project
+# Emotion Game
 
-## Requirements
+## Table of Contents
+- [Emotion Game](#Emotion-Game)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
+  
+## Description
+## Installation
+### Requirements
 
 * Ubuntu 16.04
 * python2==python2.7
@@ -18,7 +30,6 @@ wget https://bootstrap.pypa.io/pip/get-pip.py
 sudo python3 get-pip.py
 sudo rm get-pip.py
 ```
-## Instructions
 ### Setup
 Copy the reporitory locally
 
@@ -52,6 +63,8 @@ unzip stanford-ner
 ```
 * Download the folder model_data [here](https://drive.google.com/uc?id=1Jjjq2LOyrwcQRIZAhU-ZA0IyvQ7NPLAi&export=download) and unzip it inside HRI_project/emotionPepper
 * Download the packages naoqi and pynaoqi
+
+## Usage
 ### Launh the app
 * Open naoqi
 ```
@@ -80,3 +93,7 @@ sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 sudo apt install python3.7
 ```
+## Contributing
+## Licence
+## Acknowledgements
+
